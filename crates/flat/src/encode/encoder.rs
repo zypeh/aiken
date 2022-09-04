@@ -1,25 +1,30 @@
-use crate::{encode::Encode, zigzag};
-
 use super::Error;
+use crate::{
+    encode::{
+        write::{Write, Writer},
+        Encode,
+    },
+    zigzag,
+};
 
-pub struct Encoder {
-    pub buffer: Vec<u8>,
+pub struct Encoder<W> {
+    writer: Writer<W>,
     // Int
     used_bits: i64,
     // Int
     current_byte: u8,
 }
 
-impl Default for Encoder {
-    fn default() -> Self {
-        Self::new()
-    }
-}
+// impl<W: Write> Default for Encoder<W> {
+//     fn default() -> Self {
+//         Self::new(W::defau)
+//     }
+// }
 
-impl Encoder {
-    pub fn new() -> Encoder {
+impl<W: Write> Encoder<W> {
+    pub fn new(writer: W) -> Encoder<W> {
         Encoder {
-            buffer: Vec::new(),
+            writer: Writer { writer },
             used_bits: 0,
             current_byte: 0,
         }

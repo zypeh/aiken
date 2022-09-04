@@ -1,5 +1,6 @@
 mod encoder;
 mod error;
+mod write;
 
 use crate::filler::Filler;
 

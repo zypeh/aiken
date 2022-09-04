@@ -8,4 +8,6 @@ pub enum Error {
     Message(String),
     #[error(transparent)]
     Custom(#[from] anyhow::Error),
+    #[error("End of slice is reached")]
+    EndOfSlice,
 }
